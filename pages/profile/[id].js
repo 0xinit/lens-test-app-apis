@@ -93,4 +93,4 @@ const profileContainerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start'
-}
+} 
