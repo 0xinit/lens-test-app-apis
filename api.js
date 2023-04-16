@@ -1,12 +1,14 @@
-import { createClient } from 'urql'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client'
 
-const APIURL = "https://api.lens.dev"
+const API_URL = 'https://api.lens.dev'
 
-export const client = new createClient({
-  url: APIURL
+/* create the API client */
+export const client = new ApolloClient({
+  uri: API_URL,
+  cache: new InMemoryCache()
 })
 
-export const getProfiles = `
+export const getProfiles = gql`
   query Profiles($id: ProfileId!) {
     profiles(request: { profileIds: [$id], limit: 25 }) {
       items {
@@ -76,7 +78,7 @@ export const getProfiles = `
   }
 `
 
-export const getPublications = `
+export const getPublications = gql`
   query Publications($id: ProfileId!, $limit: LimitScalar) {
     publications(request: {
       profileId: $id,
@@ -119,7 +121,7 @@ export const getPublications = `
   }
 `
 
-export const recommendProfiles = `
+export const recommendProfiles = gql`
   query RecommendedProfiles {
     recommendedProfiles {
         id
@@ -139,7 +141,7 @@ export const recommendProfiles = `
   }
 `
 
-export const searchProfiles = `
+export const searchProfiles = gql`
   query Search($query: Search!, $type: SearchRequestTypes!) {
     search(request: {
       query: $query,
